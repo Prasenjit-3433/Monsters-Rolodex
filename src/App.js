@@ -35,12 +35,30 @@ class App extends Component {
       );
   }
 
+  // Moving out anonymous function (change event handler) to a method of the component:
+  onSearchChange = (event) => {
+    const searchField = event.target.value.toUpperCase();
+    
+    // Store the input value in the state so that throughout the component we can have access to it:
+    this.setState(
+      () => {
+        // return { searchField: searchField };
+
+        // Shorthand: In ES6, the key is going to be the name of the variable and the value is going to be the value of the variable for this object:
+        return { searchField };
+      }
+    );
+  }
+
   render() {
     console.log("render");
 
+    const { monsters, searchField} = this.state;
+    const { onSearchChange } = this;
+
     // Filtering always should happens on the originak list of users, so don't modify the state 
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toUpperCase().startsWith(this.state.searchField);   
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toUpperCase().startsWith(searchField);   
     });
 
     return (
@@ -49,19 +67,7 @@ class App extends Component {
           className="search-box"
           type="search"
           placeholder="search monster"
-          onChange={(event) => {
-            const searchField = event.target.value.toUpperCase();
-            
-            // Store the input value in the state so that throughout the component we can have access to it:
-            this.setState(
-              () => {
-                // return { searchField: searchField };
-
-                // Shorthand: In ES6, the key is going to be the name of the variable and the value is going to be the value of the variable for this object:
-                return { searchField };
-              }
-            );
-          }}
+          onChange={onSearchChange}
         />
         {filteredMonsters.map((monster) => {
           // Anytime you use the map() function inside of render, or you have a list of the same looking jsx elements one after another, they need a key attribute (and CRA will warn you about it if you miss it)
