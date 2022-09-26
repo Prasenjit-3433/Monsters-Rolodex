@@ -1,5 +1,5 @@
 import { Component } from "react";
-import logo from "./logo.svg";
+import CardList from './components/card-list/card-list.component'
 import "./App.css";
 
 // Here we're saying that we want to make a class, called App and also want to extend the functionality of the `Component` class that React gave us:
@@ -15,21 +15,16 @@ class App extends Component {
       monsters: [],
       searchField: ''
     };
-    console.log("constructor");
   }
 
   // Whatever you write here will get run whenever the component mounts (i.e. first time a component gets placed into DOM) .ie. Just after the initial UI of the component was mounted first time!
   componentDidMount() {
-    console.log("componentDidMount");
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
       .then((users) =>
         this.setState(
           () => {
             return { monsters: users };
-          },
-          () => {
-            console.log(this.state);
           }
         )
       );
@@ -51,8 +46,6 @@ class App extends Component {
   }
 
   render() {
-    console.log("render");
-
     const { monsters, searchField} = this.state;
     const { onSearchChange } = this;
 
@@ -69,14 +62,8 @@ class App extends Component {
           placeholder="search monster"
           onChange={onSearchChange}
         />
-        {filteredMonsters.map((monster) => {
-          // Anytime you use the map() function inside of render, or you have a list of the same looking jsx elements one after another, they need a key attribute (and CRA will warn you about it if you miss it)
-          return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
-            </div>
-          );
-        })}
+        
+        <CardList monsters={filteredMonsters}/>
       </div>
     );
   }
