@@ -1,5 +1,6 @@
 import { Component } from "react";
-import CardList from './components/card-list/card-list.component'
+import CardList from './components/card-list/card-list.component';
+import SearchBox from './components/search-box/search-box.component';
 import "./App.css";
 
 // Here we're saying that we want to make a class, called App and also want to extend the functionality of the `Component` class that React gave us:
@@ -46,6 +47,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('render from App.js');
     const { monsters, searchField} = this.state;
     const { onSearchChange } = this;
 
@@ -56,12 +58,8 @@ class App extends Component {
 
     return (
       <div className="App">
-        <input
-          className="search-box"
-          type="search"
-          placeholder="search monster"
-          onChange={onSearchChange}
-        />
+        
+        <SearchBox onChangeHandler={onSearchChange} placeholder='search monsters' className='search-box'/>
         
         <CardList monsters={filteredMonsters}/>
       </div>
