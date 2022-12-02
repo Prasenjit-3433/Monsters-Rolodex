@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import CardList from './components/card-list/card-list.component';
 import SearchBox from './components/search-box/search-box.component';
 
@@ -23,7 +23,7 @@ const App = () => {
         const users = await getData <Monster[]>("https://jsonplaceholder.typicode.com/users");
         setMonsters(users);
       }
-      
+
       fetchUsers();
     }, []);
 
@@ -36,7 +36,7 @@ const App = () => {
   }, [monsters, searchField]);
 
 
-  const onSearchChange = (event) => {
+  const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const searchFieldString = event.target.value.toUpperCase(); 
     setSearchField(searchFieldString);
   }
