@@ -1,6 +1,12 @@
+import { Monster } from '../../App';
+
 import './card.styles.css';
 
-const Card = ({monster}) => {
+type CardProp = {
+  monster: Monster;
+}
+
+const Card = ({monster}: CardProp) => {
   const { id, name, email } = monster;
     // Anytime when you use the map() function inside of render, or when you have a list of the same looking jsx elements one after another, they need a key attribute (and CRA will warn you about it if you miss it)
     return (
